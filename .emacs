@@ -49,6 +49,12 @@
 ;; 初期化
 (package-initialize)
 
+;;exe path setting
+;;NOTE: call after package-initialize
+(when (memq window-system '(mac ns))
+  (exec-path-from-shell-initialize))
+(exec-path-from-shell-initialize)
+
 ;; yatex    ==========================================
 ;; load yatex-mode
 (setq auto-mode-alist 
