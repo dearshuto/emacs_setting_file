@@ -52,6 +52,26 @@
       '(("gnu" . "http://elpa.gnu.org/packages/")
        ("melpa" . "http://melpa.org/packages/")
        ("org" . "http://orgmode.org/elpa/")))
+
+;; package list ---------------------
+;; 起動時に存在しないパッケージをインストール
+(defvar required-packages
+  '(company
+    company-irony
+    lsp-mode
+    lsp-ui
+    rustic
+    flycheck
+    irony
+    use-package)
+  "to be installed")
+
+(dolist (pkg required-packages)
+  (unless (package-installed-p pkg)
+    (package-install pkg)))
+;; ---------------------------------
+
+
 ;exe path setting
 ;;NOTE: call after package-initialize
 ;(when (memq window-system '(mac ns))
