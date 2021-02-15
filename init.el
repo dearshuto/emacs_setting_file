@@ -11,7 +11,6 @@
 (setq auto-save-default nil)
 ;; --------------------------------------------------------------------------------
 
-
 ;; ウィンドウを半透明にする設定
 ;; Color
 (if window-system (progn
@@ -99,6 +98,9 @@
   (doom-themes-visual-bell-config)
   (doom-themes-neotree-config)
   )
+
+;; カーソルを淡いグレーに
+(set-cursor-color "#BBBBBB") 
 
 
 ;exe path setting
