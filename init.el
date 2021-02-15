@@ -1,3 +1,11 @@
+;; パッケージをダウンロードする関数
+(defun download-packages (package-names)
+  "download packages"
+  (dolist (package-name package-names)
+    (unless (package-installed-p package-name)
+      (package-install package-name))))
+
+
 ;; make it not create backup files
 (setq make-backup-files nil)
 (setq auto-save-default nil)
