@@ -16,6 +16,9 @@
 (when (fboundp 'menu-bar-mode) (menu-bar-mode -1))
 (when (fboundp 'tool-bar-mode) (tool-bar-mode -1))
 
+;; ファイルのリロード
+(global-auto-revert-mode t)
+
 ;; ウィンドウの見た目に関する設定
 
 ; ウィンドウを縦に2分割する設定
