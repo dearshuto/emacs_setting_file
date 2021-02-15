@@ -143,8 +143,12 @@
  ;; If there is more than one, they won't work right.
  )
 
+;; irony
+(download-packages '(irony))
+
 
 ;; compony
+(download-packages '(company))
 (add-hook 'after-init-hook 'global-company-mode)
 (require 'irony)
 (add-hook 'c-mode-hook 'irony-mode)
@@ -172,6 +176,7 @@
 ;;  :ensure t
 ;;  :custom rust-format-on-save t
 ;;  )
+(download-packages '(rustic))
 (use-package rustic)
 
 
