@@ -7,7 +7,7 @@
 ;; ウィンドウを半透明にする設定
 ;; Color
 (if window-system (progn
-    (set-frame-parameter nil 'alpha 50) ;透明度
+    (set-frame-parameter nil 'alpha 75) ;透明度
     ))
 ;; --------------------------------------------------------------------------------
 
@@ -77,6 +77,17 @@
   (unless (package-installed-p pkg)
     (package-install pkg)))
 ;; ---------------------------------
+
+;; theme
+(use-package doom-themes
+  :config
+  (setq doom-themes-enable-bold t
+	doom-themes-enable-italic t
+	)
+  (load-theme 'doom-old-hope t)
+  (doom-themes-visual-bell-config)
+  (doom-themes-neotree-config)
+  )
 
 
 ;exe path setting
