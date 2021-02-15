@@ -24,13 +24,16 @@
 (when (fboundp 'menu-bar-mode) (menu-bar-mode -1))
 (when (fboundp 'tool-bar-mode) (tool-bar-mode -1))
 
+;; 全画面化
+(toggle-frame-maximized)
+
 ;; ファイルのリロード
 (global-auto-revert-mode t)
 
 ;; ウィンドウの見た目に関する設定
 
 ; ウィンドウを縦に2分割する設定
-(split-window-horizontally (/ (frame-width) 2))
+;;(split-window-horizontally (/ (frame-width) 2))
 
 ; ウィンドウのスタイルの設定
 (setq default-frame-alist
@@ -41,10 +44,6 @@
                    '(mouse-color      . "black")  ; マウスカーソルの色
                    '(cursor-color     . "black")  ; カーソルの色
                    '(cursor-type      . box)      ; カーソルの形状
-                   '(top . 5) ; ウィンドウの表示位置（Y座標）
-                   '(left . 50) ; ウィンドウの表示位置（X座標）
-                   '(width . 150) ; ウィンドウの幅（文字数）
-                   '(height . 95) ; ウィンドウの高さ（文字数）
                    )
                   default-frame-alist))
 ;; --------------------------------------------------------------------------------
