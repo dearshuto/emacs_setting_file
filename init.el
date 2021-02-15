@@ -87,6 +87,7 @@
 ;; ---------------------------------
 
 ;; theme
+(download-packages '(doom-themes))
 (use-package doom-themes
   :config
   (setq doom-themes-enable-bold t
