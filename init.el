@@ -46,6 +46,10 @@
                    '(cursor-type      . box)      ; カーソルの形状
                    )
                   default-frame-alist))
+
+;; 80 文字のハイライト
+(global-display-fill-column-indicator-mode 1)
+
 ;; --------------------------------------------------------------------------------
 
 
