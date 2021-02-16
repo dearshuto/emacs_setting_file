@@ -87,9 +87,13 @@
 
 ;; カーソルを淡いグレーに
 (set-cursor-color "Cyan")
+
+;; カーソルを点滅させない
+(blink-cursor-mode -1)
+
 (global-hl-line-mode t)
 (custom-set-faces
- '(hl-line ((t (:background "SteelBlue4")))))
+ '(hl-line ((t (:background "gray1")))))
 
 ;exe path setting
 ;;NOTE: call after package-initialize
