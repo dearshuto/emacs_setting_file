@@ -73,9 +73,23 @@
   (doom-themes-neotree-config)
   )
 
-;; カーソルを淡いグレーに
-(set-cursor-color "#BBBBBB") 
+;; mac のフォント設定
+(when (equal system-type 'darwin)
+  (setq default-frame-alist
+	(append (list
+		 '(font . "Menlo-11"))
+		default-frame-alist))
+  )
+;;(setq default-frame-alist
+;;      (append (list
+;;              '(font . "Menlo-11"))
+;;              default-frame-alist))
 
+;; カーソルを淡いグレーに
+(set-cursor-color "Cyan")
+(global-hl-line-mode t)
+(custom-set-faces
+ '(hl-line ((t (:background "SteelBlue4")))))
 
 ;exe path setting
 ;;NOTE: call after package-initialize
