@@ -95,6 +95,18 @@
 (custom-set-faces
  '(hl-line ((t (:background "gray1")))))
 
+
+;; eshel で Ctrl+l したときに全クリアされる設定
+(defun eshell-clear-buffer ()
+  "Clear terminal"
+  (interactive)
+  (let ((inhibit-read-only t))
+    (erase-buffer)
+    (eshell-send-input)))
+(add-hook 'eshell-mode-hook
+      '(lambda()
+          (local-set-key (kbd "C-l") 'eshell-clear-buffer)))
+
 ;exe path setting
 ;;NOTE: call after package-initialize
 ;(when (memq window-system '(mac ns))
@@ -182,3 +194,4 @@
 ;;  :custom (lsp-rust-server 'rust-analyzer))
 ;;(use-package lsp-ui
 ;;  :ensure t)
+(put 'erase-buffer 'disabled nil)
