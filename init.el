@@ -1,11 +1,3 @@
-;; パッケージをダウンロードする関数
-(defun download-packages (package-names)
-  "download packages"
-  (dolist (package-name package-names)
-    (unless (package-installed-p package-name)
-      (package-install package-name))))
-
-
 ;; make it not create backup files
 (setq make-backup-files nil)
 (setq auto-save-default nil)
@@ -53,42 +45,24 @@
 
 
 ;; Emacsに付属しているパッケージ管理システムを拡張する設定
-;; add package lists
 (require 'package)
-;; MELPAを追加
-;(add-to-list 'package-archives '("melpa" . "http://melpa.org/packages/") t)
-;; MELPA-stableを追加
-;(add-to-list 'package-archives '("melpa-stable" . "http://stable.melpa.org/packages/") t)
-;; Marmaladeを追加
-;(add-to-list 'package-archives  '("marmalade" . "http://marmalade-repo.org/packages/") t)
-;; Orgを追加
-;(add-to-list 'package-archives '("org" . "http://orgmode.org/elpa/") t)
-;; 初期化
 (package-initialize)
 (setq package-archives
       '(("gnu" . "http://elpa.gnu.org/packages/")
        ("melpa" . "http://melpa.org/packages/")
        ("org" . "http://orgmode.org/elpa/")))
 
-;; package list ---------------------
-;; 起動時に存在しないパッケージをインストール
-(defvar required-packages
-  '(company
-    company-irony
-    lsp-mode
-    lsp-ui
-    rustic
-    flycheck
-    irony
-    use-package)
-  "to be installed")
+;; パッケージをダウンロードする関数
+(defun download-packages (package-names)
+  "download packages"
+  (dolist (package-name package-names)
+    (unless (package-installed-p package-name)
+      (package-refresh-contents)
+      (package-install package-name))))
 
-(dolist (pkg required-packages)
-  (unless (package-installed-p pkg)
-    (package-install pkg)))
-;; ---------------------------------
 
 ;; theme
+(download-packages '(doom-themes))
 (use-package doom-themes
   :config
   (setq doom-themes-enable-bold t
@@ -149,6 +123,7 @@
 
 
 ;; compony
+(download-packages '(company))
 (add-hook 'after-init-hook 'global-company-mode)
 (require 'irony)
 (add-hook 'c-mode-hook 'irony-mode)
@@ -172,10 +147,7 @@
 (add-to-list 'exec-path (expand-file-name "~/.cargo/bin"))
 
 ;; rust
-;;(use-package rust-mode
-;;  :ensure t
-;;  :custom rust-format-on-save t
-;;  )
+(download-packages '(rustic))
 (use-package rustic)
 
 
