@@ -96,6 +96,20 @@
  '(hl-line ((t (:background "gray1")))))
 
 
+;; mode line のカスタマイズ
+(download-packages '(doom-modeline))
+(use-package doom-modeline
+  :ensure t
+  :init (doom-modeline-mode 1))
+(setq doom-modeline-buffer-file-name-style 'auto)
+(setq doom-modeline-icon (display-graphic-p))
+(setq doom-modeline-major-mode-icon t)
+(setq doom-modeline-major-mode-color-icon t)
+(setq doom-modeline-buffer-state-icon t)
+(setq doom-modeline-buffer-modification-icon t)
+(setq doom-modeline-buffer-encoding t)
+(setq doom-modeline-lsp t)
+
 ;; eshel で Ctrl+l したときに全クリアされる設定
 (defun eshell-clear-buffer ()
   "Clear terminal"
