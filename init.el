@@ -187,6 +187,7 @@
 ;;  )
 
 ;; lsp
+(download-packages '(lsp-mode))
 ;;(use-package lsp-mode
 ;;  :ensure t
 ;;  :hook (rust-mode . lsp)
