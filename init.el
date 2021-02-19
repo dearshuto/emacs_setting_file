@@ -162,7 +162,7 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
-   '(rainbow-mode rustic cargo lsp-mode lsp-ui rust-mode company-irony company)))
+   '(highlight-parentheses rustic cargo lsp-mode lsp-ui rust-mode company-irony company)))
 
 
 
@@ -219,3 +219,13 @@
   (setq rainbow-html-colors t)
   (add-hook 'emacs-lisp-mode-hook 'rainbow-mode)
   )
+
+;; カッコのハイライト
+(show-paren-mode t)
+(require 'paren)
+(setq show-paren-delay 0)
+(setq show-paren-style 'parenthesis)
+(set-face-background 'show-paren-match "#4dccff")
+(set-face-foreground 'show-paren-match "#020266")
+(set-face-underline 'show-paren-match "#ffff00")
+(set-face-attribute 'show-paren-match nil :weight 'extra-bold)
