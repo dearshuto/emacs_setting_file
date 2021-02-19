@@ -162,7 +162,7 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
-   '(highlight-parentheses rustic cargo lsp-mode lsp-ui rust-mode company-irony company)))
+   '(smooth-scroll highlight-parentheses rustic cargo lsp-mode lsp-ui rust-mode company-irony company)))
 
 
 
@@ -225,7 +225,12 @@
 (require 'paren)
 (setq show-paren-delay 0)
 (setq show-paren-style 'parenthesis)
-(set-face-background 'show-paren-match "#4dccff")
+(set-face-background 'show-paren-match "#ffac4d")
 (set-face-foreground 'show-paren-match "#020266")
-(set-face-underline 'show-paren-match "#ffff00")
+(set-face-underline 'show-paren-match "#ff4d4d")
 (set-face-attribute 'show-paren-match nil :weight 'extra-bold)
+
+;; 滑らかなスクロール。Ctrl+V の使い勝手がよくない
+(download-packages '(smooth-scroll))
+(require 'smooth-scroll)
+(smooth-scroll-mode t)
