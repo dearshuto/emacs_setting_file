@@ -162,7 +162,7 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
-   '(highlight-parentheses rustic cargo lsp-mode lsp-ui rust-mode company-irony company)))
+   '(rainbow-delimiters smooth-scroll highlight-parentheses rustic cargo lsp-mode lsp-ui rust-mode company-irony company)))
 
 
 
@@ -229,3 +229,7 @@
 (set-face-foreground 'show-paren-match "#020266")
 (set-face-underline 'show-paren-match "#ffff00")
 (set-face-attribute 'show-paren-match nil :weight 'extra-bold)
+
+;; 連続したカッコを七色に塗り分ける
+(download-packages '(rainbow-delimiters))
+(add-hook 'prog-mode-hook 'rainbow-delimiters-mode)
