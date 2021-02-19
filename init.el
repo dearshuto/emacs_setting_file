@@ -33,10 +33,12 @@
                    '(background-color . "black")  ; 背景色
                    '(border-color     . "white")  ; ボーダー色
                    '(mouse-color      . "black")  ; マウスカーソルの色
-                   '(cursor-color     . "black")  ; カーソルの色
+                   '(cursor-color     . "cyan")  ; カーソルの色
                    '(cursor-type      . box)      ; カーソルの形状
                    )
                   default-frame-alist))
+;; カーソルを点滅させない
+(blink-cursor-mode -1)
 
 ;; 80 文字のハイライト
 (global-display-fill-column-indicator-mode 1)
@@ -63,15 +65,19 @@
 
 ;; theme
 (download-packages '(doom-themes))
+(add-to-list 'custom-theme-load-path "~/.emacs.d/themes")
+(setq custom-theme-directory "~/.emacs.d/themes")
 (use-package doom-themes
+  :load-path "./themes"
+  :custom
+  (doom-themes-enable-italic t)
+  (doom-themes-enable-bold t)
   :config
-  (setq doom-themes-enable-bold t
-	doom-themes-enable-italic t
-	)
-  (load-theme 'doom-old-hope t)
+  (load-theme 'shikama-first t)
   (doom-themes-visual-bell-config)
   (doom-themes-neotree-config)
   )
+
 
 ;; mac のフォント設定
 (when (equal system-type 'darwin)
@@ -85,14 +91,12 @@
 ;;              '(font . "Menlo-11"))
 ;;              default-frame-alist))
 
-;; カーソルを淡いグレーに
-(set-cursor-color "Cyan")
-
-;; カーソルを点滅させない
-(blink-cursor-mode -1)
-
 (global-hl-line-mode t)
 (custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
  '(hl-line ((t (:background "gray1")))))
 
 
@@ -109,6 +113,7 @@
 (setq doom-modeline-buffer-modification-icon t)
 (setq doom-modeline-buffer-encoding t)
 (setq doom-modeline-lsp t)
+
 
 ;; eshel で Ctrl+l したときに全クリアされる設定
 (defun eshell-clear-buffer ()
@@ -157,13 +162,8 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
-   '(rustic cargo lsp-mode lsp-ui rust-mode company-irony company)))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- )
+   '(rainbow-mode rustic cargo lsp-mode lsp-ui rust-mode company-irony company)))
+
 
 
 ;; compony
