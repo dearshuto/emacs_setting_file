@@ -210,3 +210,12 @@
 ;;(use-package lsp-ui
 ;;  :ensure t)
 (put 'erase-buffer 'disabled nil)
+
+
+;; カラーコードを可視化
+(download-packages '(rainbow-mode))
+(use-package rainbow-mode
+  :config
+  (setq rainbow-html-colors t)
+  (add-hook 'emacs-lisp-mode-hook 'rainbow-mode)
+  )
