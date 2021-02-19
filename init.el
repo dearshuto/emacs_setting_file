@@ -62,6 +62,7 @@
       (package-refresh-contents)
       (package-install package-name))))
 
+(download-packages '(use-package))
 
 ;; theme
 (download-packages '(doom-themes))
