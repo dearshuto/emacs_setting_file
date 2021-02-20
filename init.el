@@ -196,7 +196,18 @@
 
 ;; rust
 (download-packages '(rustic))
-(use-package rustic)
+(use-package rustic
+  :ensure t
+  :config
+  ;; rustfmt を rustic 経由で走らせるとバグるので、外部プロセスとして走らせる
+  ;;  (setq-default rustic-format-trigger 'on-save)
+  (defun execute-rustfmt ()
+    (interactive)
+    (call-process "rustfmt" nil t nil buffer-file-name))
+
+  ;; キーバインドがうまくいかない。とりあえず M-x で呼び出す
+;;    (define-key rustic-mode-map "\C-x\C-x" 'my-pwd)
+  )
 
 
 ;;(use-package cargo
