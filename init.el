@@ -166,9 +166,12 @@
    '(rainbow-delimiters smooth-scroll highlight-parentheses rustic cargo lsp-mode lsp-ui rust-mode company-irony company)))
 
 
+;; irony
+(download-packages '(irony))
 
 ;; compony
 (download-packages '(company))
+(download-packages '(company-irony))
 (add-hook 'after-init-hook 'global-company-mode)
 (require 'irony)
 (add-hook 'c-mode-hook 'irony-mode)
