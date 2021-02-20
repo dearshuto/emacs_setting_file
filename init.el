@@ -187,6 +187,9 @@
   (define-key company-active-map (kbd "C-S-h") 'company-show-doc-buffer) ;; ドキュメント表示はC-Shift-h
   )
 
+;; flycheck
+(download-packages '(flycheck))
+
 ;; exepath
 (add-to-list 'exec-path (expand-file-name "/Users/shuto/develop/github/rust/src/tools/rust-analyzer/target/release/"))
 (add-to-list 'exec-path (expand-file-name "~/.cargo/bin"))
