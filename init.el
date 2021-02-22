@@ -163,8 +163,27 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
-   '(rainbow-delimiters smooth-scroll highlight-parentheses rustic cargo lsp-mode lsp-ui rust-mode company-irony company)))
+   '(counsel ivy rainbow-delimiters smooth-scroll highlight-parentheses rustic cargo lsp-mode lsp-ui rust-mode company-irony company)))
 
+;; モードライン ---------------------------------------------------------
+;; ivy
+(use-package ivy
+  :ensure t
+  :config
+  (setq ivy-use-virtual-buffers t)
+  (setq enable-recursive-minibuffers t)
+  (setq ivy-height 5) ;; minibufferのサイズを拡大！（重要）
+  (setq ivy-extra-directories nil))
+
+;; counsel
+(use-package counsel
+  :ensure t
+  :config
+  (global-set-key (kbd "M-x") 'counsel-M-x)
+  (global-set-key (kbd "C-x C-f") 'counsel-find-file)
+  (setq counsel-find-file-ignore-regexp (regexp-opt '("./" "../"))))
+
+;; --------------------------------------------------------------------
 
 ;; irony
 (download-packages '(irony))
