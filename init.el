@@ -163,7 +163,7 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
-   '(counsel ivy rainbow-delimiters smooth-scroll highlight-parentheses rustic cargo lsp-mode lsp-ui rust-mode company-irony company)))
+   '(symbol-overlay counsel ivy rainbow-delimiters smooth-scroll highlight-parentheses rustic cargo lsp-mode lsp-ui rust-mode company-irony company)))
 
 ;; モードライン ---------------------------------------------------------
 ;; ivy
@@ -184,6 +184,20 @@
   (setq counsel-find-file-ignore-regexp (regexp-opt '("./" "../"))))
 
 ;; --------------------------------------------------------------------
+
+
+;; 編集補佐 ------------------------------------------------------------
+
+;; 同じ単語をハイライト
+(use-package symbol-overlay
+  :ensure t
+  :config
+  (setq symbol-overlay-idle-time 0.01)
+  (add-hook 'prog-mode-hook 'symbol-overlay-mode)
+  (add-hook 'emacs-lisp-mode 'symbol-overlay-mode)
+  )
+  
+;; -------------------------------------------------------------------
 
 ;; irony
 (download-packages '(irony))
