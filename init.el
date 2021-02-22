@@ -251,3 +251,12 @@
 ;; 連続したカッコを七色に塗り分ける
 (download-packages '(rainbow-delimiters))
 (add-hook 'prog-mode-hook 'rainbow-delimiters-mode)
+
+;; 保存時にモードラインを光らせる
+(add-hook 'after-save-hook
+	  (lambda ()
+            (let ((orig-fg (face-background 'mode-line)))
+              (set-face-background 'mode-line "#009900")
+              (run-with-idle-timer 0.25 nil
+				   (lambda (fg) (set-face-background 'mode-line fg))
+				   orig-fg))))
