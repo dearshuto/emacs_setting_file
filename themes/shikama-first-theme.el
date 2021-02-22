@@ -31,7 +31,7 @@
    (dark-cyan  '("#4fb3d8" "#4fb3d8" "cyan"))
 
    ;; face categories -- required for all themes
-   (highlight      yellow)
+   (highlight      (doom-darken yellow 0.25))
    (vertical-bar   yellow)
    (selection      red)
    (builtin        yellow)
