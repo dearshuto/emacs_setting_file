@@ -1,3 +1,10 @@
+;; 外部パッケージ置き場をロードパスに追加=====================================
+(let ((default-directory (locate-user-emacs-file "./externals")))
+  (add-to-list 'load-path default-directory)
+  (normal-top-level-add-subdirs-to-load-path))
+;;--------------------------------------------------------------------
+
+
 ;; make it not create backup files
 (setq make-backup-files nil)
 (setq auto-save-default nil)
@@ -129,9 +136,9 @@
 
 ;exe path setting
 ;;NOTE: call after package-initialize
-;(when (memq window-system '(mac ns))
-;  (exec-path-from-shell-initialize))
-;(exec-path-from-shell-initialize)
+;;(when (memq window-system '(mac ns))
+;;  (exec-path-from-shell-initialize))
+;;(exec-path-from-shell-initialize)
 ;; --------------------------------------------------------------------------------
 
 
@@ -163,7 +170,7 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
-   '(which-key symbol-overlay counsel ivy rainbow-delimiters smooth-scroll highlight-parentheses rustic cargo lsp-mode lsp-ui rust-mode company-irony company)))
+   '(flycheck-glsl company-glsl rainbow-mode rainbow-delimiters smooth-scroll highlight-parentheses rustic cargo lsp-mode lsp-ui rust-mode company-irony company)))
 
 ;; モードライン ---------------------------------------------------------
 ;; ivy
@@ -234,11 +241,17 @@
   )
 
 ;; flycheck
-(download-packages '(flycheck))
+(use-package flycheck
+  :ensure t
+  :config
+  (global-flycheck-mode)
+  (setq flycheck-idle-change-delay 0.1)
+  )
 
 ;; exepath
 (add-to-list 'exec-path (expand-file-name "/Users/shuto/develop/github/rust/src/tools/rust-analyzer/target/release/"))
 (add-to-list 'exec-path (expand-file-name "~/.cargo/bin"))
+(add-to-list 'exec-path (expand-file-name "/usr/local/bin/"))
 
 ;; rust
 (download-packages '(rustic))
@@ -272,6 +285,23 @@
 ;;  :ensure t)
 (put 'erase-buffer 'disabled nil)
 
+;; GLSL --------------------------------------------------------------
+(use-package glsl-mode
+  :ensure t
+  :config
+  (add-to-list 'auto-mode-alist '("\\.vs\\'" . glsl-mode))
+  (add-to-list 'auto-mode-alist '("\\.fs\\'" . glsl-mode))
+  )
+(use-package company-glsl
+  :ensure t
+  :config  
+  (add-to-list 'company-backends 'company-glsl)
+  (add-hook 'company-glsl 'glsl-mode)
+  )
+
+;; flycheck はパーケージシステムにないので :ensure はなし
+(use-package flycheck-glsl)
+;; -------------------------------------------------------------------
 
 ;; カラーコードを可視化
 (download-packages '(rainbow-mode))
