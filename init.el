@@ -163,7 +163,7 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
-   '(symbol-overlay counsel ivy rainbow-delimiters smooth-scroll highlight-parentheses rustic cargo lsp-mode lsp-ui rust-mode company-irony company)))
+   '(which-key symbol-overlay counsel ivy rainbow-delimiters smooth-scroll highlight-parentheses rustic cargo lsp-mode lsp-ui rust-mode company-irony company)))
 
 ;; モードライン ---------------------------------------------------------
 ;; ivy
@@ -182,6 +182,16 @@
   (global-set-key (kbd "M-x") 'counsel-M-x)
   (global-set-key (kbd "C-x C-f") 'counsel-find-file)
   (setq counsel-find-file-ignore-regexp (regexp-opt '("./" "../"))))
+
+;; Suggestion
+(use-package which-key
+  :ensure t
+  :config
+  (which-key-setup-side-window-bottom) ; 下に表示
+  (which-key-mode t)
+  (setq which-key-idle-delay 0.01)
+  (setq which-key-idle-secondary-delay 0.01)
+  (setq which-key-side-window-max-height 5))
 
 ;; --------------------------------------------------------------------
 
