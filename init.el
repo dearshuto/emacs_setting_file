@@ -34,7 +34,7 @@
                    '(border-color     . "white")  ; ボーダー色
                    '(mouse-color      . "black")  ; マウスカーソルの色
                    '(cursor-color     . "cyan")  ; カーソルの色
-                   '(cursor-type      . box)      ; カーソルの形状
+                   '(cursor-type      . bar)      ; カーソルの形状
                    )
                   default-frame-alist))
 ;; カーソルを点滅させない
