@@ -41,18 +41,23 @@
 (require 'flycheck)
 
 (defun shader-stage-type () "Select an argument for glslangValidator."
-       (if (string-equal "glsl" (file-name-extension buffer-file-name)) "comp"
-	 (if (string-equal "vs" (file-name-extension buffer-file-name)) "vert"
-	   (if (string-equal "fs" (file-name-extension buffer-file-name)) "frag"
+       (if (string-equal "glsl" (file-name-extension buffer-file-name)) "-fshader-stage=comp"
+	 (if (string-equal "vs" (file-name-extension buffer-file-name)) "-fshader-stage=vert"
+	   (if (string-equal "fs" (file-name-extension buffer-file-name)) "-fshader-stage=frag"
 	     "error"))))
 
+;; glslc による構文チェック。以下の設定をデフォルトで指定
+;; 1. #version 450 の自動挿入
+;; 2. 編集中のファイルのディレクトリをインクルード対象に設定
+;;
+;; TODO: 兄弟ディレクトリもインクルード対象に入れちゃってもいいかも
 (flycheck-define-checker glsl-lang-validator
   "A GLSL checker using glslangValidator.
 
   See URL https://www.khronos.org/opengles/sdk/tools/Reference-Compiler/"
-  :command ("glslangValidator" "-S" (eval (shader-stage-type)) source)
+  :command ("glslc" "-std=450" "-c" (eval (shader-stage-type)) "-I" (eval (file-name-directory (buffer-file-name))) source)
   :error-patterns
-  ((error line-start "ERROR: " column ":" line ": " (message) line-end))
+  ((error line-start (file-name) ":" line ": error: " (message) line-end))
   :modes glsl-mode)
 
 (add-to-list 'flycheck-checkers 'glsl-lang-validator)
