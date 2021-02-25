@@ -173,7 +173,7 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
-   '(flycheck-glsl company-glsl rainbow-mode rainbow-delimiters smooth-scroll highlight-parentheses rustic cargo lsp-mode lsp-ui rust-mode company-irony company)))
+   '(company-lsp flycheck-glsl company-glsl rainbow-mode rainbow-delimiters smooth-scroll highlight-parentheses rustic cargo lsp-mode lsp-ui rust-mode company-irony company)))
 
 ;; モードライン ---------------------------------------------------------
 ;; ivy
@@ -227,9 +227,6 @@
 (download-packages '(company-irony))
 (add-hook 'after-init-hook 'global-company-mode)
 (require 'irony)
-(add-hook 'c-mode-hook 'irony-mode)
-(add-hook 'c++-mode-hook 'irony-mode)
-(add-hook 'objc-mode-hook 'irony-mode)
 (add-hook 'irony-mode-hook 'irony-cdb-autosetup-compile-options)
 ;;(add-to-list 'company-backends 'company-irony) ; backend追加
 (eval-after-load 'company
@@ -277,16 +274,34 @@
 ;;  :hook (rust-mode . cargo-minor-mode)
 ;;  )
 
-;; lsp
-(download-packages '(lsp-mode))
-;;(use-package lsp-mode
-;;  :ensure t
+;; lsp ---------------------------------------------------------------
+(use-package lsp-mode
+  :ensure t
 ;;  :hook (rust-mode . lsp)
-;;  :bind ("C-c h" . lsp-describe-thing-at-point)
-;;  :custom (lsp-rust-server 'rust-analyzer))
-;;(use-package lsp-ui
-;;  :ensure t)
+  ;;  :bind ("C-c h" . lsp-describe-thing-at-point)
+  :custom
+   (lsp-prefer-flymake nil)
+   ;;  :custom (lsp-rust-server 'rust-analyzer)
+   :hook
+   (prog-major-mode . lsp-prog-major-mode-enable)
+   (lsp-managed-mode . (lambda () (setq-local company-backends '(company-capf))))
+  )
+
+(use-package lsp-ui
+  :ensure t
+  :after lsp-mode
+  :custom
+  (lsp-ui-flycheck-enable t)
+  )
 (put 'erase-buffer 'disabled nil)
+;; -------------------------------------------------------------------
+
+
+;; C++ ---------------------------------------------------------------
+(add-hook 'c++-mode-hook 'company-mode)
+(add-hook 'c++-mode-hook 'flycheck-mode)
+(add-hook 'c++-mode-hook #'lsp)
+;;--------------------------------------------------------------------
 
 ;; GLSL --------------------------------------------------------------
 (use-package glsl-mode
@@ -297,7 +312,7 @@
   )
 (use-package company-glsl
   :ensure t
-  :config  
+  :config
   (add-to-list 'company-backends 'company-glsl)
   (add-hook 'company-glsl 'glsl-mode)
   )
