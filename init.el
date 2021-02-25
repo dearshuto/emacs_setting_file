@@ -216,7 +216,9 @@
   (add-hook 'prog-mode-hook 'symbol-overlay-mode)
   (add-hook 'emacs-lisp-mode 'symbol-overlay-mode)
   )
-  
+
+;; 対応するカッコを自動挿入
+(electric-pair-mode 1)
 ;; -------------------------------------------------------------------
 
 ;; irony
