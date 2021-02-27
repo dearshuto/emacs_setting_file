@@ -53,12 +53,16 @@
 ;; 80 文字のハイライト
 (global-display-fill-column-indicator-mode 1)
 
+<<<<<<< Updated upstream
 ;; Ctrl+矢印でウィンドウを移動するキーバインド
 (global-unset-key (kbd "S-<up>"))
 (global-set-key (kbd "S-<left>") 'windmove-left)
 (global-set-key (kbd "S-<right>") 'windmove-right)
 (global-set-key (kbd "S-<up>") 'windmove-up)
 (global-set-key (kbd "S-<down>") 'windmove-down)
+
+;; Ctrl+L で現在の行を削除するショートカットを設定
+(global-set-key (kbd "C-l") 'kill-whole-line)
 ;; --------------------------------------------------------------------------------
 
 
