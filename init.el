@@ -281,10 +281,10 @@
   )
 
 
-;;(use-package cargo
-;;  :ensure t
-;;  :hook (rust-mode . cargo-minor-mode)
-;;  )
+(use-package cargo
+  :ensure t
+  :hook (rust-mode . cargo-minor-mode)
+  )
 
 ;; lsp ---------------------------------------------------------------
 (use-package lsp-mode
