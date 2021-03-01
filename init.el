@@ -53,7 +53,6 @@
 ;; 80 文字のハイライト
 (global-display-fill-column-indicator-mode 1)
 
-<<<<<<< Updated upstream
 ;; Ctrl+矢印でウィンドウを移動するキーバインド
 (global-unset-key (kbd "S-<up>"))
 (global-set-key (kbd "S-<left>") 'windmove-left)
