@@ -186,7 +186,7 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
-   '(company-lsp flycheck-glsl company-glsl rainbow-mode rainbow-delimiters smooth-scroll highlight-parentheses rustic cargo lsp-mode lsp-ui rust-mode company-irony company)))
+   '(yaml-mode company-lsp flycheck-glsl company-glsl rainbow-mode rainbow-delimiters smooth-scroll highlight-parentheses rustic cargo lsp-mode lsp-ui rust-mode company-irony company)))
 
 ;; モードライン ---------------------------------------------------------
 ;; ivy
@@ -238,29 +238,42 @@
 (download-packages '(irony))
 
 ;; compony
-(download-packages '(company))
-(download-packages '(company-irony))
-(add-hook 'after-init-hook 'global-company-mode)
-(require 'irony)
-(add-hook 'irony-mode-hook 'irony-cdb-autosetup-compile-options)
-;;(add-to-list 'company-backends 'company-irony) ; backend追加
-(eval-after-load 'company
-  '(add-to-list 'company-backends 'company-irony))
-(with-eval-after-load 'company
+(use-package company
+  :ensure t
+  :config
   (setq company-idle-delay 0) ; 遅延なしにすぐ表示
   (setq company-auto-expand t) ;; 1個目を自動的に補完
   (setq company-selection-wrap-around t) ; 候補の最後の次は先頭に戻る
-  
+
+  (define-key company-active-map (kbd "C-n") #'company-select-next)
+  (define-key company-active-map (kbd "C-p") #'company-select-previous)
   (define-key company-active-map [tab] 'company-complete-selection) ;; TABで候補を設定
   (define-key company-active-map (kbd "C-S-h") 'company-show-doc-buffer) ;; ドキュメント表示はC-Shift-h
   )
+
+;;(download-packages '(company))
+;;(download-packages '(company-irony))
+;;(add-hook 'after-init-hook 'global-company-mode)
+;;(require 'irony)
+;;(add-hook 'irony-mode-hook 'irony-cdb-autosetup-compile-options)
+;;(add-to-list 'company-backends 'company-irony) ; backend追加
+;;(eval-after-load 'company
+;;  '(add-to-list 'company-backends 'company-irony))
+;;(with-eval-after-load 'company
+;;  (setq company-idle-delay 0) ; 遅延なしにすぐ表示
+;;  (setq company-auto-expand t) ;; 1個目を自動的に補完
+;;  (setq company-selection-wrap-around t) ; 候補の最後の次は先頭に戻る
+;;  
+;;  (define-key company-active-map [tab] 'company-complete-selection) ;; TABで候補を設定
+;;  (define-key company-active-map (kbd "C-S-h") 'company-show-doc-buffer) ;; ドキュメント表示はC-Shift-h
+;;  )
 
 ;; flycheck
 (use-package flycheck
   :ensure t
   :config
   (global-flycheck-mode)
-  (setq flycheck-idle-change-delay 0.1)
+  (setq flycheck-idle-change-delay 0.5)
   )
 
 ;; exepath
@@ -340,6 +353,18 @@
 ;; cmake -------------------------------------------------------------
 (use-package cmake-mode
     :ensure t)
+;; -------------------------------------------------------------------
+
+
+;; yaml --------------------------------------------------------------
+(use-package yaml-mode
+  :ensure t
+  :config
+  (add-to-list 'auto-mode-alist '("\\.yml\\'" . yaml-mode))
+  (add-hook 'yaml-mode-hook
+	    '(lambda ()
+               (define-key yaml-mode-map "\C-m" 'newline-and-indent)))
+  )
 ;; -------------------------------------------------------------------
 
 ;; カラーコードを可視化
