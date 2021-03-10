@@ -182,7 +182,7 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
-   '(exec-path-from-shell cmake-mode glsl-mode dap-mode flycheck irony symbol-overlay which-key counsel ivy company-lsp flycheck-glsl company-glsl rainbow-mode rainbow-delimiters smooth-scroll highlight-parentheses rustic cargo lsp-mode lsp-ui rust-mode company-irony company)))
+   '(dap-mode exec-path-from-shell cmake-mode glsl-mode flycheck irony symbol-overlay which-key counsel ivy company-lsp flycheck-glsl company-glsl rainbow-mode rainbow-delimiters smooth-scroll highlight-parentheses rustic cargo lsp-mode lsp-ui rust-mode company-irony company)))
 
 ;; モードライン ---------------------------------------------------------
 ;; ivy
@@ -311,25 +311,24 @@
   :ensure
   :init (exec-path-from-shell-initialize))
 
-;; DSP
+;; dap
 (use-package dap-mode
   :ensure t
-;;  :custom
   :config
   (dap-ui-mode)
   (dap-ui-controls-mode 1)
-;;  (setq dap-auto-configure-features '(sessions locals controls tooltip))
-  (require 'dap-lldb)
-  (require 'dap-gdb-lldb)
-  (dap-gdb-lldb-setup)
-  (dap-register-debug-template "Rust::LLDB Run Configuration"
-			     (list :type "lldb"
+  (setq dap-auto-configure-features '(sessions locals controls tooltip))
+  (require 'dap-codelldb)
+  (dap-codelldb-setup)
+  (dap-register-debug-template "Rust::CODELLDB"
+			     (list :type "codelldb"
 				   :request "launch"
-				   :name "LLDB::Run"
+				   :name "CODELLDB::Run"
 				   :gdbpath "rust-lldb"
 				   :target nil
 				   :cwd nil
-				   )))
+				   ))
+  )
 ;; ----
 
 ;; C++ ---------------------------------------------------------------
