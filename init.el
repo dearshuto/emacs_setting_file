@@ -106,14 +106,10 @@
 		 '(font . "Menlo-11"))
 		default-frame-alist))
   )
-
-;; Windows のフォント設定
-(when (equal system-type 'windows-nt)
-  (setq default-frame-alist
-	(append (list
-		 '(font . "Consolas-11"))
-		default-frame-alist))
-  )
+;;(setq default-frame-alist
+;;      (append (list
+;;              '(font . "Menlo-11"))
+;;              default-frame-alist))
 
 (global-hl-line-mode t)
 (custom-set-faces
@@ -186,7 +182,7 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
-   '(yaml-mode company-lsp flycheck-glsl company-glsl rainbow-mode rainbow-delimiters smooth-scroll highlight-parentheses rustic cargo lsp-mode lsp-ui rust-mode company-irony company)))
+   '(company-lua flymake-lua lua-mode dap-mode exec-path-from-shell cmake-mode glsl-mode flycheck irony symbol-overlay which-key counsel ivy company-lsp flycheck-glsl company-glsl rainbow-mode rainbow-delimiters smooth-scroll highlight-parentheses rustic cargo lsp-mode lsp-ui rust-mode company-irony company)))
 
 ;; モードライン ---------------------------------------------------------
 ;; ivy
@@ -232,51 +228,35 @@
 
 ;; 対応するカッコを自動挿入
 (electric-pair-mode 1)
-
-;; 行番号を表示
-(global-display-line-numbers-mode)
 ;; -------------------------------------------------------------------
 
 ;; irony
 (download-packages '(irony))
 
 ;; compony
-(use-package company
-  :ensure t
-  :config
+(download-packages '(company))
+(download-packages '(company-irony))
+(add-hook 'after-init-hook 'global-company-mode)
+(require 'irony)
+(add-hook 'irony-mode-hook 'irony-cdb-autosetup-compile-options)
+;;(add-to-list 'company-backends 'company-irony) ; backend追加
+(eval-after-load 'company
+  '(add-to-list 'company-backends 'company-irony))
+(with-eval-after-load 'company
   (setq company-idle-delay 0) ; 遅延なしにすぐ表示
   (setq company-auto-expand t) ;; 1個目を自動的に補完
   (setq company-selection-wrap-around t) ; 候補の最後の次は先頭に戻る
-
-  (define-key company-active-map (kbd "C-n") #'company-select-next)
-  (define-key company-active-map (kbd "C-p") #'company-select-previous)
+  
   (define-key company-active-map [tab] 'company-complete-selection) ;; TABで候補を設定
   (define-key company-active-map (kbd "C-S-h") 'company-show-doc-buffer) ;; ドキュメント表示はC-Shift-h
   )
-
-;;(download-packages '(company))
-;;(download-packages '(company-irony))
-;;(add-hook 'after-init-hook 'global-company-mode)
-;;(require 'irony)
-;;(add-hook 'irony-mode-hook 'irony-cdb-autosetup-compile-options)
-;;(add-to-list 'company-backends 'company-irony) ; backend追加
-;;(eval-after-load 'company
-;;  '(add-to-list 'company-backends 'company-irony))
-;;(with-eval-after-load 'company
-;;  (setq company-idle-delay 0) ; 遅延なしにすぐ表示
-;;  (setq company-auto-expand t) ;; 1個目を自動的に補完
-;;  (setq company-selection-wrap-around t) ; 候補の最後の次は先頭に戻る
-;;  
-;;  (define-key company-active-map [tab] 'company-complete-selection) ;; TABで候補を設定
-;;  (define-key company-active-map (kbd "C-S-h") 'company-show-doc-buffer) ;; ドキュメント表示はC-Shift-h
-;;  )
 
 ;; flycheck
 (use-package flycheck
   :ensure t
   :config
   (global-flycheck-mode)
-  (setq flycheck-idle-change-delay 0.5)
+  (setq flycheck-idle-change-delay 0.1)
   )
 
 ;; exepath
@@ -300,10 +280,10 @@
   )
 
 
-(use-package cargo
-  :ensure t
-  :hook (rust-mode . cargo-minor-mode)
-  )
+;;(use-package cargo
+;;  :ensure t
+;;  :hook (rust-mode . cargo-minor-mode)
+;;  )
 
 ;; lsp ---------------------------------------------------------------
 (use-package lsp-mode
@@ -327,6 +307,29 @@
 (put 'erase-buffer 'disabled nil)
 ;; -------------------------------------------------------------------
 
+(use-package exec-path-from-shell
+  :ensure
+  :init (exec-path-from-shell-initialize))
+
+;; dap
+(use-package dap-mode
+  :ensure t
+  :config
+  (dap-ui-mode)
+  (dap-ui-controls-mode 1)
+  (setq dap-auto-configure-features '(sessions locals controls tooltip))
+  (require 'dap-codelldb)
+  (dap-codelldb-setup)
+  (dap-register-debug-template "Rust::CODELLDB"
+			     (list :type "codelldb"
+				   :request "launch"
+				   :name "CODELLDB::Run"
+				   :gdbpath "rust-lldb"
+				   :target nil
+				   :cwd nil
+				   ))
+  )
+;; ----
 
 ;; C++ ---------------------------------------------------------------
 (add-hook 'c++-mode-hook 'company-mode)
@@ -359,14 +362,18 @@
 ;; -------------------------------------------------------------------
 
 
-;; yaml --------------------------------------------------------------
-(use-package yaml-mode
+;; lua ---------------------------------------------------------------
+(use-package lua-mode
+  :ensure t)
+(use-package company-lua
   :ensure t
   :config
-  (add-to-list 'auto-mode-alist '("\\.yml\\'" . yaml-mode))
-  (add-hook 'yaml-mode-hook
-	    '(lambda ()
-               (define-key yaml-mode-map "\C-m" 'newline-and-indent)))
+  (defun my-lua-mode-company-init ()
+    (setq-local company-backends '((company-lua
+                                    company-etags
+                                    company-dabbrev-code
+                                    company-yasnippet))))
+  (add-hook 'lua-mode-hook #'my-lua-mode-company-init)
   )
 ;; -------------------------------------------------------------------
 
