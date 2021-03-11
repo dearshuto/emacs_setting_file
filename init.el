@@ -62,6 +62,12 @@
 
 ;; Ctrl+L で現在の行を削除するショートカットを設定
 (global-set-key (kbd "C-l") 'kill-whole-line)
+
+;; バッファを閉じるキーバインド
+(global-set-key (kbd "C-q") 'kill-this-buffer)
+
+;; アンドゥ
+(global-set-key (kbd "C-z") 'undo)
 ;; --------------------------------------------------------------------------------
 
 
