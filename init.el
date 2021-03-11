@@ -47,6 +47,10 @@
                    '(cursor-type      . bar)      ; カーソルの形状
                    )
                   default-frame-alist))
+
+;; タブを有効化
+(global-tab-line-mode t)
+
 ;; カーソルを点滅させない
 (blink-cursor-mode -1)
 
