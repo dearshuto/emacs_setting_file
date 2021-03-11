@@ -1,3 +1,10 @@
+;;; init.el --- Setting File ---
+
+;;; Commentary:
+;; of Shuto, by Shuto, for Shuto
+
+;;; Code:
+
 ;; 外部パッケージ置き場をロードパスに追加=====================================
 (let ((default-directory (locate-user-emacs-file "./externals")))
   (add-to-list 'load-path default-directory)
@@ -85,7 +92,7 @@
 
 ;; パッケージをダウンロードする関数
 (defun download-packages (package-names)
-  "download packages"
+  "Download packages."
   (dolist (package-name package-names)
     (unless (package-installed-p package-name)
       (package-refresh-contents)
@@ -147,7 +154,7 @@
 
 ;; eshel で Ctrl+l したときに全クリアされる設定
 (defun eshell-clear-buffer ()
-  "Clear terminal"
+  "Clear terminal."
   (interactive)
   (let ((inhibit-read-only t))
     (erase-buffer)
@@ -423,3 +430,5 @@
               (run-with-idle-timer 0.25 nil
 				   (lambda (fg) (set-face-background 'mode-line fg))
 				   orig-fg))))
+
+;;; init.el ends here
