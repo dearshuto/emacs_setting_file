@@ -182,7 +182,7 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
-   '(dap-mode exec-path-from-shell cmake-mode glsl-mode flycheck irony symbol-overlay which-key counsel ivy company-lsp flycheck-glsl company-glsl rainbow-mode rainbow-delimiters smooth-scroll highlight-parentheses rustic cargo lsp-mode lsp-ui rust-mode company-irony company)))
+   '(company-lua flymake-lua lua-mode dap-mode exec-path-from-shell cmake-mode glsl-mode flycheck irony symbol-overlay which-key counsel ivy company-lsp flycheck-glsl company-glsl rainbow-mode rainbow-delimiters smooth-scroll highlight-parentheses rustic cargo lsp-mode lsp-ui rust-mode company-irony company)))
 
 ;; モードライン ---------------------------------------------------------
 ;; ivy
@@ -359,6 +359,22 @@
 ;; cmake -------------------------------------------------------------
 (use-package cmake-mode
     :ensure t)
+;; -------------------------------------------------------------------
+
+
+;; lua ---------------------------------------------------------------
+(use-package lua-mode
+  :ensure t)
+(use-package company-lua
+  :ensure t
+  :config
+  (defun my-lua-mode-company-init ()
+    (setq-local company-backends '((company-lua
+                                    company-etags
+                                    company-dabbrev-code
+                                    company-yasnippet))))
+  (add-hook 'lua-mode-hook #'my-lua-mode-company-init)
+  )
 ;; -------------------------------------------------------------------
 
 ;; カラーコードを可視化
