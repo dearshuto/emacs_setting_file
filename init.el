@@ -61,6 +61,10 @@
 ;; カーソルを点滅させない
 (blink-cursor-mode -1)
 
+;; no return
+(setq-default truncate-lines t)
+(setq-default truncate-partial-width-windows t)
+
 ;; 80 文字のハイライト
 (global-display-fill-column-indicator-mode 1)
 
