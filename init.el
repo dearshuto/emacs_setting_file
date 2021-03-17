@@ -141,16 +141,17 @@
 (download-packages '(doom-modeline))
 (use-package doom-modeline
   :ensure t
-  :init (doom-modeline-mode 1))
-(setq doom-modeline-buffer-file-name-style 'auto)
-(setq doom-modeline-icon (display-graphic-p))
-(setq doom-modeline-major-mode-icon t)
-(setq doom-modeline-major-mode-color-icon t)
-(setq doom-modeline-buffer-state-icon t)
-(setq doom-modeline-buffer-modification-icon t)
-(setq doom-modeline-buffer-encoding t)
-(setq doom-modeline-lsp t)
-
+  :init (doom-modeline-mode 1)
+  :config
+  (setq doom-modeline-buffer-file-name-style 'auto)
+  (setq doom-modeline-icon (display-graphic-p))
+  (setq doom-modeline-major-mode-icon t)
+  (setq doom-modeline-major-mode-color-icon t)
+  (setq doom-modeline-buffer-state-icon t)
+  (setq doom-modeline-buffer-modification-icon t)
+  (setq doom-modeline-buffer-encoding t)
+  (setq doom-modeline-lsp t)
+  )
 
 ;; eshel で Ctrl+l したときに全クリアされる設定
 (defun eshell-clear-buffer ()
@@ -199,7 +200,7 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
-   '(company-lua flymake-lua lua-mode dap-mode exec-path-from-shell cmake-mode glsl-mode flycheck irony symbol-overlay which-key counsel ivy company-lsp flycheck-glsl company-glsl rainbow-mode rainbow-delimiters smooth-scroll highlight-parentheses rustic cargo lsp-mode lsp-ui rust-mode company-irony company)))
+   '(json-mode company-lua flymake-lua lua-mode dap-mode exec-path-from-shell cmake-mode glsl-mode flycheck irony symbol-overlay which-key counsel ivy company-lsp flycheck-glsl company-glsl rainbow-mode rainbow-delimiters smooth-scroll highlight-parentheses rustic cargo lsp-mode lsp-ui rust-mode company-irony company)))
 
 ;; モードライン ---------------------------------------------------------
 ;; ivy
@@ -247,25 +248,22 @@
 (electric-pair-mode 1)
 ;; -------------------------------------------------------------------
 
-;; irony
-(download-packages '(irony))
-
 ;; compony
-(download-packages '(company))
-(download-packages '(company-irony))
-(add-hook 'after-init-hook 'global-company-mode)
-(require 'irony)
-(add-hook 'irony-mode-hook 'irony-cdb-autosetup-compile-options)
-;;(add-to-list 'company-backends 'company-irony) ; backend追加
-(eval-after-load 'company
-  '(add-to-list 'company-backends 'company-irony))
-(with-eval-after-load 'company
+(use-package company
+  :ensure t
+  :hook
+  (add-hook 'after-init-hook 'global-company-mode)
+  :config
   (setq company-idle-delay 0) ; 遅延なしにすぐ表示
-  (setq company-auto-expand t) ;; 1個目を自動的に補完
+  (setq company-auto-expand t) ; 1個目を自動的に補完
   (setq company-selection-wrap-around t) ; 候補の最後の次は先頭に戻る
-  
-  (define-key company-active-map [tab] 'company-complete-selection) ;; TABで候補を設定
-  (define-key company-active-map (kbd "C-S-h") 'company-show-doc-buffer) ;; ドキュメント表示はC-Shift-h
+  :bind (
+	 :map company-active-map
+	      ("<tab>" . company-complete-selection) ;; TABで候補を設定
+	      ("C-S-h" . company-show-doc-buffer) ;; ドキュメント表示はC-Shift-h
+	      ("C-p" . company-select-previous)
+	      ("C-n" . company-select-next)
+	 )
   )
 
 ;; flycheck
@@ -293,26 +291,28 @@
     (call-process "rustfmt" nil t nil buffer-file-name))
 
   ;; キーバインドがうまくいかない。とりあえず M-x で呼び出す
-;;    (define-key rustic-mode-map "\C-x\C-x" 'my-pwd)
+  ;;    (define-key rustic-mode-map "\C-x\C-x" 'my-pwd)
+
+  (add-to-list 'auto-mode-alist '("\\.rs\\'" . rustic-mode))
+  (add-to-list 'auto-mode-alist '("\\.rs\\'" . rustic-mode))
   )
 
 
-;;(use-package cargo
-;;  :ensure t
-;;  :hook (rust-mode . cargo-minor-mode)
-;;  )
+;; cargo
+(use-package cargo
+  :ensure t
+  :bind (("M-b" . cargo-process-build)))
 
 ;; lsp ---------------------------------------------------------------
 (use-package lsp-mode
   :ensure t
-;;  :hook (rust-mode . lsp)
-  ;;  :bind ("C-c h" . lsp-describe-thing-at-point)
   :custom
-   (lsp-prefer-flymake nil)
-   ;;  :custom (lsp-rust-server 'rust-analyzer)
+  (lsp-prefer-flymake nil)
    :hook
    (prog-major-mode . lsp-prog-major-mode-enable)
    (lsp-managed-mode . (lambda () (setq-local company-backends '(company-capf))))
+;;   :config
+;;   (setq lsp-ui-doc-show-with-cursor nil)
   )
 
 (use-package lsp-ui
