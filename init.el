@@ -250,6 +250,9 @@
 
 ;; 対応するカッコを自動挿入
 (electric-pair-mode 1)
+
+(setq-default tab-width 4)
+(defvaralias 'c-basic-offset 'tab-width)
 ;; -------------------------------------------------------------------
 
 ;; compony
