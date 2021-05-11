@@ -12,8 +12,9 @@
 ;;--------------------------------------------------------------------
 
 ;; 環境変数持ち込む
-(when (require 'exec-path-from-shell nil t)
-  (exec-path-from-shell-initialize))
+(when (not (equal system-type 'windows-nt))
+  (when (require 'exec-path-from-shell nil t)
+	(exec-path-from-shell-initialize)))
 
 ;; make it not create backup files
 (setq make-backup-files nil)
