@@ -338,9 +338,11 @@
 (put 'erase-buffer 'disabled nil)
 ;; -------------------------------------------------------------------
 
-(use-package exec-path-from-shell
-  :ensure
-  :init (exec-path-from-shell-initialize))
+(when (not (equal system-type 'windows-nt))
+	  (use-package exec-path-from-shell
+		:ensure
+		:init (exec-path-from-shell-initialize))
+	  )
 
 ;; dap
 (use-package dap-mode
@@ -349,7 +351,8 @@
   (dap-ui-mode)
   (dap-ui-controls-mode 1)
   (setq dap-auto-configure-features '(sessions locals controls tooltip))
-  (require 'dap-codelldb)
+  (require 'dap-lldb)
+  (require 'dap-codelldb)  
   (dap-codelldb-setup)
   (dap-register-debug-template "Rust::CODELLDB"
 			     (list :type "codelldb"
