@@ -123,10 +123,17 @@
 ;; mac のフォント設定
 (when (equal system-type 'darwin)
   (setq default-frame-alist
-	(append (list
-		 '(font . "Menlo-11"))
-		default-frame-alist))
-  )
+		(append (list
+				 '(font . "Menlo-11"))
+				default-frame-alist)))
+
+;; Windows のフォント
+(when (equal system-type 'windows-nt)
+  (setq default-frame-alist
+		(append (list
+				 '(font . "Consolas-11"))
+				default-frame-alist)))
+
 ;;(setq default-frame-alist
 ;;      (append (list
 ;;              '(font . "Menlo-11"))
