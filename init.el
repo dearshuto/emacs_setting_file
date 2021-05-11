@@ -298,6 +298,9 @@
 (download-packages '(rustic))
 (use-package rustic
   :ensure t
+  :commands rustic-mode
+  :init
+  (add-to-list 'auto-mode-alist '("\\.rs$" . rustic-mode))
   :config
   ;; rustfmt を rustic 経由で走らせるとバグるので、外部プロセスとして走らせる
   ;;  (setq-default rustic-format-trigger 'on-save)
@@ -307,9 +310,6 @@
 
   ;; キーバインドがうまくいかない。とりあえず M-x で呼び出す
   ;;    (define-key rustic-mode-map "\C-x\C-x" 'my-pwd)
-
-  (add-to-list 'auto-mode-alist '("\\.rs\\'" . rustic-mode))
-  (add-to-list 'auto-mode-alist '("\\.rs\\'" . rustic-mode))
   )
 
 
