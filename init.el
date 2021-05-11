@@ -12,8 +12,9 @@
 ;;--------------------------------------------------------------------
 
 ;; 環境変数持ち込む
-(when (require 'exec-path-from-shell nil t)
-  (exec-path-from-shell-initialize))
+(when (not (equal system-type 'windows-nt))
+  (when (require 'exec-path-from-shell nil t)
+	(exec-path-from-shell-initialize)))
 
 ;; make it not create backup files
 (setq make-backup-files nil)
@@ -123,10 +124,17 @@
 ;; mac のフォント設定
 (when (equal system-type 'darwin)
   (setq default-frame-alist
-	(append (list
-		 '(font . "Menlo-11"))
-		default-frame-alist))
-  )
+		(append (list
+				 '(font . "Menlo-11"))
+				default-frame-alist)))
+
+;; Windows のフォント
+(when (equal system-type 'windows-nt)
+  (setq default-frame-alist
+		(append (list
+				 '(font . "Consolas-11"))
+				default-frame-alist)))
+
 ;;(setq default-frame-alist
 ;;      (append (list
 ;;              '(font . "Menlo-11"))
@@ -331,9 +339,11 @@
 (put 'erase-buffer 'disabled nil)
 ;; -------------------------------------------------------------------
 
-(use-package exec-path-from-shell
-  :ensure
-  :init (exec-path-from-shell-initialize))
+(when (not (equal system-type 'windows-nt))
+	  (use-package exec-path-from-shell
+		:ensure
+		:init (exec-path-from-shell-initialize))
+	  )
 
 ;; dap
 (use-package dap-mode
@@ -342,7 +352,8 @@
   (dap-ui-mode)
   (dap-ui-controls-mode 1)
   (setq dap-auto-configure-features '(sessions locals controls tooltip))
-  (require 'dap-codelldb)
+  (require 'dap-lldb)
+  (require 'dap-codelldb)  
   (dap-codelldb-setup)
   (dap-register-debug-template "Rust::CODELLDB"
 			     (list :type "codelldb"
