@@ -326,7 +326,11 @@
    :hook
    (prog-major-mode . lsp-prog-major-mode-enable)
    (lsp-managed-mode . (lambda () (setq-local company-backends '(company-capf))))
-;;   :config
+
+   ;; バッファを閉じたときに lsp-server が死ぬように設定
+   :config
+   (setq lsp-keep-workspace-alive nil)
+   
 ;;   (setq lsp-ui-doc-show-with-cursor nil)
   )
 
