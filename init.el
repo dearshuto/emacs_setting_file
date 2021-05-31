@@ -322,16 +322,18 @@
 (use-package lsp-mode
   :ensure t
   :custom
+  ;; debug
+  (lsp-print-io nil)
+  (lsp-trace nil)
+  (lsp-print-performance nil)
+  ;; general
+  (lsp-auto-guess-root t)
+  (lsp-response-timeout 5)
   (lsp-prefer-flymake nil)
-   :hook
-   (prog-major-mode . lsp-prog-major-mode-enable)
-   (lsp-managed-mode . (lambda () (setq-local company-backends '(company-capf))))
-
-   ;; バッファを閉じたときに lsp-server が死ぬように設定
-   :config
-   (setq lsp-keep-workspace-alive nil)
-   
-;;   (setq lsp-ui-doc-show-with-cursor nil)
+  :hook
+  (prog-major-mode . lsp-prog-major-mode-enable)
+  (lsp-managed-mode . (lambda () (setq-local company-backends '(company-capf))))
+  :config
   )
 
 (use-package lsp-ui
