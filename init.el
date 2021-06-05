@@ -285,7 +285,7 @@
 
 ;; compony
 (use-package company
-  :ensure t
+  :straight t
   :hook
   (add-hook 'after-init-hook 'global-company-mode)
   :config
@@ -303,7 +303,7 @@
 
 ;; flycheck
 (use-package flycheck
-  :ensure t
+  :straight t
   :config
   (global-flycheck-mode)
   (setq flycheck-idle-change-delay 0.1)
@@ -339,7 +339,7 @@
 
 ;; lsp ---------------------------------------------------------------
 (use-package lsp-mode
-  :ensure t
+  :straight t
   :custom
   (lsp-prefer-flymake nil)
    :hook
@@ -354,7 +354,7 @@
   )
 
 (use-package lsp-ui
-  :ensure t
+  :straight t
   :after lsp-mode
   :custom
   (lsp-ui-flycheck-enable t)
