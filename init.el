@@ -5,6 +5,7 @@
 
 ;;; Code:
 
+
 ;; 外部パッケージ置き場をロードパスに追加=====================================
 (let ((default-directory (locate-user-emacs-file "./externals")))
   (add-to-list 'load-path default-directory)
@@ -86,6 +87,25 @@
 (global-set-key (kbd "C-z") 'undo)
 ;; --------------------------------------------------------------------------------
 
+;; Install straight
+(defvar bootstrap-version)
+(let ((bootstrap-file
+       (expand-file-name "straight/repos/straight.el/bootstrap.el" user-emacs-directory))
+      (bootstrap-version 5))
+  (unless (file-exists-p bootstrap-file)
+    (with-current-buffer
+        (url-retrieve-synchronously
+         "https://raw.githubusercontent.com/raxod502/straight.el/develop/install.el"
+         'silent 'inhibit-cookies)
+      (goto-char (point-max))
+      (eval-print-last-sexp)))
+  (load bootstrap-file nil 'nomessage))
+
+;; use-package の設定を straight に引き継ぐ
+(straight-use-package 'use-package)
+
+(use-package el-patch
+  :straight t)
 
 ;; Emacsに付属しているパッケージ管理システムを拡張する設定
 (require 'package)
