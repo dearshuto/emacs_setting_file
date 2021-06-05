@@ -315,9 +315,8 @@
 (add-to-list 'exec-path (expand-file-name "/usr/local/bin/"))
 
 ;; rust
-(download-packages '(rustic))
 (use-package rustic
-  :ensure t
+  :straight t
   :commands rustic-mode
   :init
   (add-to-list 'auto-mode-alist '("\\.rs$" . rustic-mode))
