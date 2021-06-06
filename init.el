@@ -206,13 +206,6 @@
 ;; exec-path-from-shell
 ;; bashのパスをemaceに引き継がせるプラグイン.
 ;(exec-path-from-shell-initialize)~
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(package-selected-packages
-   '(json-mode company-lua flymake-lua lua-mode dap-mode exec-path-from-shell cmake-mode glsl-mode flycheck irony symbol-overlay which-key counsel ivy company-lsp flycheck-glsl company-glsl rainbow-mode rainbow-delimiters smooth-scroll highlight-parentheses rustic cargo lsp-mode lsp-ui rust-mode company-irony company)))
 
 ;; モードライン ---------------------------------------------------------
 ;; ivy
@@ -266,12 +259,15 @@
 ;; compony
 (use-package company
   :ensure t
-  :hook
-  (add-hook 'after-init-hook 'global-company-mode)
+  :init
+  (global-company-mode)
   :config
+ ;; (setq company-backends "(company-capf)")
   (setq company-idle-delay 0) ; 遅延なしにすぐ表示
-  (setq company-auto-expand t) ; 1個目を自動的に補完
+  (setq company-minimum-prefix-length 2)
   (setq company-selection-wrap-around t) ; 候補の最後の次は先頭に戻る
+  (setq completion-ignore-case t)
+  (setq company-dabbrev-downcase nil)
   :bind (
 	 :map company-active-map
 	      ("<tab>" . company-complete-selection) ;; TABで候補を設定
@@ -289,27 +285,34 @@
   (setq flycheck-idle-change-delay 0.1)
   )
 
+(use-package eglot
+  :ensure t
+  :config
+  (add-to-list 'eglot-server-programs '(rustic-mode . ("rust-analyzer")))
+  (add-hook 'rustic-mode-hook 'eglot-ensure)
+  )
+
 ;; exepath
 (add-to-list 'exec-path (expand-file-name "/Users/shuto/develop/github/rust/src/tools/rust-analyzer/target/release/"))
 (add-to-list 'exec-path (expand-file-name "~/.cargo/bin"))
 (add-to-list 'exec-path (expand-file-name "/usr/local/bin/"))
 
 ;; rust
-(download-packages '(rustic))
 (use-package rustic
   :ensure t
-  :commands rustic-mode
-  :init
-  (add-to-list 'auto-mode-alist '("\\.rs$" . rustic-mode))
+  :defer t
+  :mode ("\\.rs$" . rustic-mode)
   :config
-  ;; rustfmt を rustic 経由で走らせるとバグるので、外部プロセスとして走らせる
+  (setq rustic-lsp-client 'eglot)
+  ;; Rustfmt を rustic 経由で走らせるとバグるので、外部プロセスとして走らせる
   ;;  (setq-default rustic-format-trigger 'on-save)
   (defun execute-rustfmt ()
     (interactive)
     (call-process "rustfmt" nil t nil buffer-file-name))
 
-  ;; キーバインドがうまくいかない。とりあえず M-x で呼び出す
-  ;;    (define-key rustic-mode-map "\C-x\C-x" 'my-pwd)
+  ;; Format on Save
+  (setq-default rustic-format-trigger 'on-save)
+  (setq rustic-rustfmt-bin "~/.cargo/bin/rustfmt")
   )
 
 
@@ -321,26 +324,23 @@
 ;; lsp ---------------------------------------------------------------
 (use-package lsp-mode
   :ensure t
-  :custom
-  ;; debug
-  (lsp-print-io nil)
-  (lsp-trace nil)
-  (lsp-print-performance nil)
-  ;; general
-  (lsp-auto-guess-root t)
-  (lsp-response-timeout 5)
-  (lsp-prefer-flymake nil)
-  :hook
-  (prog-major-mode . lsp-prog-major-mode-enable)
-  (lsp-managed-mode . (lambda () (setq-local company-backends '(company-capf))))
   :config
+  ;; debug
+  (setq lsp-log-io nil)
+  ;; general
+  (setq lsp-auto-guess-root t)
+  (setq lsp-response-timeout 5)
   )
 
 (use-package lsp-ui
   :ensure t
   :after lsp-mode
-  :custom
-  (lsp-ui-flycheck-enable t)
+  :config
+  (setq lsp-ui-doc-enable t)
+  (setq lsp-ui-doc-header t)
+  (setq lsp-ui-doc-include-signature t)
+  (setq lsp-ui-doc-max-height 30)
+  (setq lsp-ui-peek-enable t)
   )
 (put 'erase-buffer 'disabled nil)
 ;; -------------------------------------------------------------------
@@ -456,3 +456,10 @@
 				   orig-fg))))
 
 ;;; init.el ends here
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(package-selected-packages
+   '(rust-analyzer which-key use-package symbol-overlay rustic rainbow-mode rainbow-delimiters lsp-ui json-mode flycheck exec-path-from-shell eglot doom-themes doom-modeline dap-mode counsel company-lua company-glsl cmake-mode cargo)))
