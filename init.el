@@ -254,7 +254,7 @@
 
 ;; Suggestion
 (use-package which-key
-  :ensure t
+  :straight t
   :config
   (which-key-setup-side-window-bottom) ; 下に表示
   (which-key-mode t)
@@ -269,7 +269,7 @@
 
 ;; 同じ単語をハイライト
 (use-package symbol-overlay
-  :ensure t
+  :straight t
   :config
   (setq symbol-overlay-idle-time 0.01)
   (add-hook 'prog-mode-hook 'symbol-overlay-mode)
@@ -334,7 +334,7 @@
 
 ;; cargo
 (use-package cargo
-  :ensure t
+  :straight t
   :bind (("M-b" . cargo-process-build)))
 
 ;; lsp ---------------------------------------------------------------
@@ -370,7 +370,7 @@
 
 ;; dap
 (use-package dap-mode
-  :ensure t
+  :straight t
   :config
   (dap-ui-mode)
   (dap-ui-controls-mode 1)
@@ -397,13 +397,13 @@
 
 ;; GLSL --------------------------------------------------------------
 (use-package glsl-mode
-  :ensure t
+  :straight t
   :config
   (add-to-list 'auto-mode-alist '("\\.vs\\'" . glsl-mode))
   (add-to-list 'auto-mode-alist '("\\.fs\\'" . glsl-mode))
   )
 (use-package company-glsl
-  :ensure t
+  :straight t
   :config
   (add-to-list 'company-backends 'company-glsl)
   (add-hook 'company-glsl 'glsl-mode)
