@@ -240,6 +240,13 @@
 
 ;; 編集補佐 ------------------------------------------------------------
 
+;; Ctrl + Shift + Z でアンドゥ
+(use-package undo-tree
+  :ensure t
+  :init (global-undo-tree-mode)
+  :bind (("C-S-z" . undo-tree-redo))
+  )
+
 ;; 同じ単語をハイライト
 (use-package symbol-overlay
   :ensure t
