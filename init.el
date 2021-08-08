@@ -284,6 +284,11 @@
 	 )
   )
 
+;; company-box
+(use-package company-box
+  :ensure t
+  :hook (company-mode . company-box-mode))
+
 ;; flycheck
 (use-package flycheck
   :ensure t
@@ -310,7 +315,7 @@
   :defer t
   :mode ("\\.rs$" . rustic-mode)
   :config
-  (setq rustic-lsp-client 'eglot)
+  (setq rustic-lsp-client 'lsp-mode)
   ;; Rustfmt を rustic 経由で走らせるとバグるので、外部プロセスとして走らせる
   ;;  (setq-default rustic-format-trigger 'on-save)
   (defun execute-rustfmt ()
@@ -334,6 +339,9 @@
   :config
   ;; debug
   (setq lsp-log-io nil)
+  (setq lsp-print-io nil)
+  (setq lsp-trace nil)
+  (setq lsp-print-performance nil)
   ;; general
   (setq lsp-auto-guess-root t)
   (setq lsp-response-timeout 5)
@@ -469,4 +477,4 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
-   '(rust-analyzer which-key use-package symbol-overlay rustic rainbow-mode rainbow-delimiters lsp-ui json-mode flycheck exec-path-from-shell eglot doom-themes doom-modeline dap-mode counsel company-lua company-glsl cmake-mode cargo)))
+   '(company-box rust-analyzer which-key use-package symbol-overlay rustic rainbow-mode rainbow-delimiters lsp-ui json-mode flycheck exec-path-from-shell eglot doom-themes doom-modeline dap-mode counsel company-lua company-glsl cmake-mode cargo)))
