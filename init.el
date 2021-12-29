@@ -393,6 +393,14 @@
 (add-hook 'c++-mode-hook #'lsp)
 ;;--------------------------------------------------------------------
 
+;; C#
+(use-package csharp-mode
+  :ensure t
+  :config
+  (add-hook 'csharp-mode-hook #'lsp)
+  )
+;;
+
 ;; GLSL --------------------------------------------------------------
 (use-package glsl-mode
   :ensure t
