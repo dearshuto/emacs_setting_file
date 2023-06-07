@@ -12,6 +12,7 @@
 (set-frame-parameter nil 'alpha 75) ;透明度
 
 ;; テーマのロードパスを設定
+(leaf doom-theme :ensure t)
 (add-to-list 'custom-theme-load-path "~/.emacs.d/themes")
 (setq custom-theme-directory "~/.emacs.d/themes")
 (load-theme 'shikama-first)

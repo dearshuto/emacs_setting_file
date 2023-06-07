@@ -12,6 +12,9 @@
   :global-minor-mode global-company-mode
   )
 
+;; company
+(leaf yasnipet
+  :ensure t)
 
 ;; cargo
 (leaf cargo-mode
@@ -24,7 +27,10 @@
   :require t
   :commands lsp
   )
-(leaf rustic :ensure t)
+(leaf rustic
+  :ensure t
+  :after company
+  :after yasnipet)
 
 ;; glsl
 (leaf glsl-mode
