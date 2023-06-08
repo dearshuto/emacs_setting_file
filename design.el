@@ -71,13 +71,13 @@
   
   )
 
-(leaf neotree
+(use-package neotree
   :ensure t
   :config
   (setq neo-smart-open t)
   (bind-key "C-S-b" 'neotree-toggle)
-  (bind-key "RET" 'neotree-enter-hide neotree-mode-map)
+  (bind-key "RET" 'neotree-enter neotree-mode-map)
   (bind-key "a" 'neotree-hidden-file-toggle neotree-mode-map)
   (bind-key "<left>" 'neotree-select-up-node neotree-mode-map)
   (bind-key "<right>" 'neotree-change-root neotree-mode-map)
-)
+  )

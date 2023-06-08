@@ -49,7 +49,7 @@
  '(custom-safe-themes
    '("7d16bd8e750eb21e05094123a98ff48c6bd2de12c16482b88e71cce3e857885c" "c865644bfc16c7a43e847828139b74d1117a6077a845d16e71da38c8413a5aaa" "7a424478cb77a96af2c0f50cfb4e2a88647b3ccca225f8c650ed45b7f50d9525" default))
  '(package-selected-packages
-   '(company yasnippet which-key use-package undo-tree symbol-overlay rustic rainbow-mode rainbow-delimiters lsp-ui leaf json-mode flycheck exec-path-from-shell eglot doom-themes doom-modeline dap-mode csproj-mode csharp-mode counsel company-lua company-glsl company-box cmake-mode cargo))
+   '(lsp-treemacs lsp-ivy lsp-mode cargo-mode yasnipet company-mode orderless marginalia yafolding company yasnippet which-key use-package undo-tree symbol-overlay rustic rainbow-mode rainbow-delimiters lsp-ui leaf json-mode flycheck exec-path-from-shell eglot doom-themes doom-modeline dap-mode csproj-mode csharp-mode counsel company-lua company-glsl company-box cmake-mode cargo))
  '(warning-suppress-log-types '((leaf) (leaf) (leaf)))
  '(warning-suppress-types '((leaf) (leaf))))
 (custom-set-faces

@@ -21,12 +21,35 @@
   :ensure t
   )
 
-;; rustic
+;; lsp-mode
 (leaf lsp-mode
   :ensure t
-  :require t
   :commands lsp
+  :hook (c++-mode . lsp)
+  :hook (c-mode . lsp)
+  :hook (glsl-mode . lsp)
+  :hook (js-mode . lsp)
   )
+(use-package lsp-ui
+  :ensure t
+  :commands lsp-ui-mode
+  :hook (lsp-mode . lsp-ui-mode)
+  :custom
+  (lsp-ui-doc-enable t)
+  (lsp-ui-doc-header t)
+  (lsp-ui-doc-include-signature t)
+  (lsp-ui-doc-position 'top) ;; top, bottom, or at-point
+  (lsp-ui-doc-show-with-cursor t)
+  (lsp-ui-doc-show-with-mouse nil)
+  (lsp-ui-doc-delay 0.0416666) ;; 24fps
+)
+(use-package lsp-ivy
+  :ensure t
+  :commands lsp-ivy-workspace-symbol)
+(use-package lsp-treemacs
+  :ensure t
+  :commands lsp-treemacs-errors-list)
+
 (leaf rustic
   :ensure t
   :after company
@@ -38,6 +61,6 @@
   )
 
 ;; Bat 
-(leaf bats-mode
+(leaf bat-mode
   :ensure t
   )
