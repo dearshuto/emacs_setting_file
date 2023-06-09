@@ -25,6 +25,8 @@
 (leaf lsp-mode
   :ensure t
   :commands lsp
+  :config
+  (add-hook 'before-save-hook #'lsp-format-buffer)
   :hook (c++-mode . lsp)
   :hook (c-mode . lsp)
   :hook (glsl-mode . lsp)
