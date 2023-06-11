@@ -25,8 +25,8 @@
 (leaf lsp-mode
   :ensure t
   :commands lsp
-  :config
-  (add-hook 'before-save-hook #'lsp-format-buffer)
+  :config (local-set-key (kbd "C-.") 'lsp-execute-code-action)
+  :config (add-hook 'before-save-hook #'lsp-format-buffer)
   :hook (c++-mode . lsp)
   :hook (c-mode . lsp)
   :hook (glsl-mode . lsp)
@@ -36,6 +36,7 @@
   :ensure t
   :commands lsp-ui-mode
   :hook (lsp-mode . lsp-ui-mode)
+  ;; :config (local-set-key (kbd "C-c") 'lsp-ui-doc-hide)
   :custom
   (lsp-ui-doc-enable t)
   (lsp-ui-doc-header t)

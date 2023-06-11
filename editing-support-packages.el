@@ -20,6 +20,11 @@
           '(lambda ()
              (hs-minor-mode 1)))
 
+;; C-@ でマークした場所にカーソルを移動
+(global-set-key (kbd "C--") 'pop-global-mark)
+
+;; 外部の変更を自動リロード
+(global-auto-revert-mode 1)
 
 (use-package multiple-cursors
   :ensure t
