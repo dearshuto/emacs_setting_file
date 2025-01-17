@@ -155,6 +155,17 @@
   :after package
   )
 
+;; glsl
+(use-package glsl-mode
+  :ensure t
+  :defer t
+  :after package
+  :init
+  (add-to-list 'auto-mode-alist '("\\.vs\\'" . glsl-mode))
+  (add-to-list 'auto-mode-alist '("\\.fs\\'" . glsl-mode))
+  (add-to-list 'auto-mode-alist '("\\.ps\\'" . glsl-mode))
+  )
+
 ;; Company
 (use-package company
   ;; GUI のときは corfu を使う
@@ -216,6 +227,7 @@
   :config
   (add-hook 'before-save-hook 'eglot-format-buffer)
   (add-to-list 'eglot-server-programs '((rust-mode) "rust-analyzer"))
+  (add-to-list 'eglot-server-programs '((glsl-mode) "glsl_analyzer"))
   :hook
   ( prog-mode . eglot-ensure)
   :bind
