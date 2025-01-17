@@ -175,6 +175,7 @@
   :after package
   :init
   (global-corfu-mode)
+  (corfu-popupinfo-mode)
   :config
   (setopt corfu-cycle t
    	  corfu-auto t
@@ -185,9 +186,11 @@
   )
 
 (use-package corfu-terminal
-  :if (not window-system)
+  :if (not (display-graphic-p))
   :ensure t
   :after package
+  :config
+  (corfu-terminal-mode +1)
   )
 
 ;; corfu の補完にアイコンをつける
@@ -227,3 +230,16 @@
   :after eglot
   :hook (eglot-managed-mode . eldoc-box-hover-mode)
   )
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(package-selected-packages
+   '(eldoc-box kind-icon corfu-terminal corfu glsl-mode rust-mode vertico treemacs orderless consult multiple-cursors dashboard)))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )
