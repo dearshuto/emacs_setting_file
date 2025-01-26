@@ -1,8 +1,16 @@
 ;; ファイルのリロード
 (global-auto-revert-mode t)
 
-(add-to-list 'default-frame-alist
-                       '(font . "Menlo-11"))
+;; Linux のフォント設定
+(when (equal system-type 'gnu/linux)
+  (add-to-list 'default-frame-alist
+               '(font . "UbuntuMono-11")))
+
+;; Mac のフォント設定
+(when (equal system-type 'darwin)
+  (add-to-list 'default-frame-alist
+               '(font . "Menlo-11")))
+
 
 ;; 不要な GUI を無効化
 (when (fboundp 'menu-bar-mode) (menu-bar-mode -1))
