@@ -236,8 +236,7 @@
   :config
   ;; eglotで無効にする機能
   (setq eglot-ignored-server-capabilities
-        '(:documentHighlightProvider ;; カーソル下のシンボルハイライト、無効化すると軽量になる
-          :inlayHintProvider ;; インラインのヒント表示
+        '(:inlayHintProvider ;; インラインのヒント表示
           ))
   )
 
