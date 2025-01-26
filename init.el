@@ -115,7 +115,7 @@
   ( setq treemacs-position                        'right)
   
   ;; ファイル切り替えでツリーも切り替える
-  ( setq treemacs-project-follow-mode             t)
+  (treemacs-project-follow-mode)
 	  
   ;; ファイル切り替えを検知してツリーを更新するまでの時間
   ( setq treemacs--project-follow-delay           0.1)
