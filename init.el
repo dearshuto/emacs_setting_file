@@ -234,7 +234,6 @@
   :defer t
   :config
   (add-hook 'before-save-hook 'eglot-format-buffer)
-  (add-to-list 'eglot-server-programs '((rust-mode) "rust-analyzer"))
   (add-to-list 'eglot-server-programs '((glsl-mode) "glsl_analyzer"))
   :hook
   ( prog-mode . eglot-ensure)
