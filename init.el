@@ -9,7 +9,7 @@
 (when (fboundp 'tool-bar-mode) (tool-bar-mode -1))
 
 ;; ウィンドウを半透明に設定
-(set-frame-parameter nil 'alpha 85)
+(set-frame-parameter nil 'alpha 67)
 
 ;; 起動時に全画面化
 (push '(fullscreen . maximized) default-frame-alist)
