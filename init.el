@@ -1,6 +1,11 @@
 ;; ファイルのリロード
 (global-auto-revert-mode t)
 
+;; 大文字小文字の区別をしない
+(setq read-file-name-completion-ignore-case t
+      read-buffer-completion-ignore-case t
+      completion-ignore-case t)
+
 ;; Linux のフォント設定
 (when (equal system-type 'gnu/linux)
   (add-to-list 'default-frame-alist
