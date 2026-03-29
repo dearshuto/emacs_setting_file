@@ -1,8 +1,13 @@
 ;; Rust
-(use-package rust-mode
-  :ensure t
-  :after package
-  )
+;; M-x treesit-install-language-grammar が必要
+(use-package rust-ts-mode
+  :mode "\\.rs\\'"
+  :init
+  ;; rust-ts-mode がロードされたら eglot を自動起動
+  (add-hook 'rust-ts-mode-hook 'eglot-ensure)
+  :config
+  ;; 保存時に自動フォーマット (rust-analyzer の機能を利用)
+  (add-hook 'before-save-hook 'eglot-format-buffer nil t))
 
 ;; glsl
 (use-package glsl-mode
