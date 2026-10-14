@@ -1,8 +1,16 @@
-;; Rust
-(use-package rust-mode
+;; Tree-sitter の自動適用
+(use-package treesit-auto
   :ensure t
-  :after package
-  )
+  :custom
+  (treesit-auto-install ' prompt)
+  :config
+  (global-treesit-auto-mode))
+
+;; Rust
+(use-package rust-ts-mode
+  :mode "\\.rs\\'"
+  :hook
+  ((rust-ts-mode . eglot-ensure))) ;; eglot による LSP 補完
 
 ;; glsl
 (use-package glsl-mode
