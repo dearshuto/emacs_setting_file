@@ -1,3 +1,5 @@
+;; -*- lexical-binding: t; -*-
+
 ;;; --- パッケージ管理の初期化 ---
 (require 'package)
 (add-to-list 'package-archives '("gnu" . "https://elpa.gnu.org/packages/") t)

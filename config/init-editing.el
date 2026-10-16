@@ -1,3 +1,5 @@
+;; -*- lexical-binding: t; -*-
+
 ;; ファイルのリロード
 (global-auto-revert-mode t)
 

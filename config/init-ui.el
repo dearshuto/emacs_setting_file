@@ -1,3 +1,5 @@
+;; -*- lexical-binding: t; -*-
+
 ;; Linux のフォント設定
 (when (equal system-type 'gnu/linux)
   (add-to-list 'default-frame-alist
