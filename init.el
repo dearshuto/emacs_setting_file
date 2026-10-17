@@ -4,6 +4,11 @@
 (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
 (package-initialize)
 
+;; Custom による自動追記先を別ファイル custom.el に変更
+(setq custom-file (expand-file-name "custom.el" user-emacs-directory))
+;; もし custom.el が存在していれば読み込む
+(load custom-file 'noerror)
+
 ;;; --- 設定ファイルの読み込み用関数 ---
 (defun load-conf (file)
   (load (expand-file-name (concat "config/" file) user-emacs-directory)))
