@@ -1,8 +1,8 @@
 ;; Rust
-(use-package rust-mode
-  :ensure t
-  :after package
-  )
+(use-package rust-ts-mode
+  :mode "\\.rs\\"
+  :hook
+  ((rust-ts-mode . eglot-ensure)))
 
 ;; glsl
 (use-package glsl-mode
