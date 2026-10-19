@@ -1,3 +1,5 @@
+;; -*- lexical-binding: t; -*-
+
 ;; 不要な GUI を早期に無効化して起動を高速化
 (push '(menu-bar-lines . 0) default-frame-alist)
 (push '(tool-bar-lines . 0) default-frame-alist)

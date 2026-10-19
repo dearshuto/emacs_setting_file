@@ -1,3 +1,5 @@
+;; -*- lexical-binding: t; -*-
+
 ;; モードライン
 (use-package vertico
   :ensure t

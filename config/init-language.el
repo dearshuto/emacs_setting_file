@@ -1,3 +1,5 @@
+;; -*- lexical-binding: t; -*-
+
 ;; Rust
 ;; M-x treesit-install-language-grammar が必要
 (use-package rust-ts-mode
