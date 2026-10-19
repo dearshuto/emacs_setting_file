@@ -33,9 +33,12 @@
 
 ;; 補完強化
 (use-package consult
-  :ensure t
-  :hook (completion-list-mode . consult-preview-at-point-mode)
-  )
+  :bind (("C-x b" . consult-buffer)     ; バッファ切り替え
+         ("C-x p f" . consult-find)     ; プロジェクト内のファイル検索
+         ("C-x p g" . consult-ripgrep)) ; プロジェクト内の横断 grep 検索
+  :init
+  ;; プレビュー動作の設定など
+  (setq consult-preview-key '(:debounce 0.1 any)))
 
 ;; --- 便利な小技設定 ---
 
