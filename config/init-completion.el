@@ -18,6 +18,12 @@
   (completion-category-overrides '((file (styles basic partial-completion))))
 )
 
+;; ミニバッファに詳細なドキュメントやファイル情報を付与
+(use-package marginalia
+  :ensure t
+  :init
+  (marginalia-mode))
+
   ;; corfu
 (use-package corfu
   ;; emacs 30 以前の CLI では corfu がウィンドウを出せないので注意
