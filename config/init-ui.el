@@ -77,3 +77,16 @@
 ;; treemacs で表示したファイルツリーをダブルクリックではなくシングルクリックで操作できるようにする
 (with-eval-after-load 'treemacs
  (define-key treemacs-mode-map [mouse-1] #'treemacs-single-click-expand-action))
+
+(use-package doom-themes
+  :ensure t)
+
+;; テーマのロード設定
+(add-to-list 'custom-theme-load-path
+	     (expand-file-name "themes" user-emacs-directory))
+
+(load-theme 'shikama-first t)
+
+;; tree-sitter がない場合の置き場所
+(setq treesit-extra-load-path
+      (list (expand-file-name "grammars" user-emacs-directory)))
