@@ -38,6 +38,8 @@
   (corfu-auto-delay 0.0)
   (corfu-auto-prefix 1)
   (corfu-on-exact-match 'show)
+  :bind
+  ("C-." . completion-at-point)
   )
 
 ;; corfu の補完にアイコンをつける
