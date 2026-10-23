@@ -1,3 +1,4 @@
+;; -*- lexical-binding: t; -*-
 (require 'doom-themes)
 
 (def-doom-theme shikama-first
