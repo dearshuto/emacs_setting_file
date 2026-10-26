@@ -20,3 +20,10 @@
 (load-conf "init-editing.el")
 (load-conf "init-completion.el")
 (load-conf "init-language.el")
+
+;; 環境ごとの個別設定をロードする仕組み
+;; local/ ディレクトリ内のすべての .el ファイルを安全に自動ロードする
+(let ((local-dir (expand-file-name "local" user-emacs-directory)))
+  (when (file-directory-p local-dir)
+    (dolist (file (directory-files local-dir t "\\.el$"))
+      (load file nil 'nomessage))))
