@@ -33,6 +33,7 @@
 
 ;; 補完強化
 (use-package consult
+  :ensure t
   :bind (("C-x b" . consult-buffer)     ; バッファ切り替え
          ("C-x p f" . consult-find)     ; プロジェクト内のファイル検索
          ("C-x p g" . consult-ripgrep)) ; プロジェクト内の横断 grep 検索
