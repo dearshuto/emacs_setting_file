@@ -38,7 +38,11 @@
 (global-hl-line-mode t)
 
 ;; 行番号を表示
-(global-display-line-numbers-mode t) 
+(global-display-line-numbers-mode t)
+;; 行番号を常時表示する（絶対行番号）
+(line-number-mode 1)
+;; 列番号（カーソルが何文字目にあるか）を常時表示する
+(column-number-mode 1)
 
 ;; 起動画面のカスタマイズ
 (use-package dashboard
@@ -81,6 +85,15 @@
 (use-package doom-themes
   :ensure t)
 
+;; モードラインの表示をリッチにする
+(use-package doom-modeline
+  :ensure t
+  ;; :init だとエラーになった。確実に初期化後に有効化するために hook を使う
+  :hook (after-init . doom-modeline-mode)
+  :custom
+  (doom-modeline-buffer-encoding t)
+  (doom-modeline-lsp t)
+  )
 ;; テーマのロード設定
 (add-to-list 'custom-theme-load-path
 	     (expand-file-name "themes" user-emacs-directory))
