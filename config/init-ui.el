@@ -31,6 +31,9 @@
 ;; タブの有効化
 (global-tab-line-mode t)
 
+;;  モダン右クリックメニュー
+(context-menu-mode t)
+
 ;; カーソルを点滅させない
 (blink-cursor-mode -1)
 
