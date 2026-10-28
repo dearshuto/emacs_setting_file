@@ -19,6 +19,9 @@
 (setq-default truncate-lines t)
 (setq-default truncate-partial-width-windows t)
 
+;; ファイル保存時に、末尾に改行がない場合は自動的に追加する
+(setq require-final-newline t)
+
 ;; マルチカーソル
 (use-package multiple-cursors
   :ensure t
