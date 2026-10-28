@@ -25,16 +25,17 @@
 ;; lsp
 (use-package eglot
   :ensure nil
-  :config
-  (add-hook 'before-save-hook 'eglot-format-buffer)
-  (add-to-list 'eglot-server-programs '((glsl-mode) "glsl_analyzer"))
   :hook
   ( prog-mode . eglot-ensure)
+  ;; Eglot 接続時のみ保存時フォーマットを有効化
+  (eglot-managed-mode . (lambda ()
+                          (add-hook 'before-save-hook #'eglot-format-buffer nil t)))
   :bind
   (:map eglot-mode-map
 	("<f2>" . eglot-rename)
         ("C-;" . eglot-code-actions))
   :config
+  (add-to-list 'eglot-server-programs '((glsl-mode) "glsl_analyzer"))
   ;; eglotで無効にする機能
   (setq eglot-ignored-server-capabilities
         '(:inlayHintProvider ;; インラインのヒント表示
