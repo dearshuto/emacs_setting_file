@@ -3,6 +3,15 @@
 ;; ファイルのリロード
 (global-auto-revert-mode t)
 
+;; 閉じカッコの自動挿入
+(electric-pair-mode t)
+
+;; 選択範囲の上書き入力
+(delete-selection-mode t)
+
+;; キャメルケース単位のカーソル移動
+(global-subword-mode t)
+
 ;; 大文字小文字の区別をしない
 (setq read-file-name-completion-ignore-case t
       read-buffer-completion-ignore-case t
