@@ -31,8 +31,9 @@
   :hook
   ( prog-mode . eglot-ensure)
   :bind
-  (
-   ("C-;" . eglot-code-actions))
+  (:map eglot-mode-map
+	("<f2>" . eglot-rename)
+        ("C-;" . eglot-code-actions))
   :config
   ;; eglotで無効にする機能
   (setq eglot-ignored-server-capabilities
