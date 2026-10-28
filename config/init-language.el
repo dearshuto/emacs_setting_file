@@ -24,7 +24,7 @@
 
 ;; lsp
 (use-package eglot
-  :defer t
+  :ensure nil
   :config
   (add-hook 'before-save-hook 'eglot-format-buffer)
   (add-to-list 'eglot-server-programs '((glsl-mode) "glsl_analyzer"))
