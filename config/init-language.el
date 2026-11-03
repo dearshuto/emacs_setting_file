@@ -55,7 +55,6 @@
 (use-package eglot
   :ensure nil
   :hook
-  ( prog-mode . eglot-ensure)
   ;; Eglot 接続時のみ保存時フォーマットを有効化
   (eglot-managed-mode . (lambda ()
                           (add-hook 'before-save-hook #'eglot-format-buffer nil t)))
