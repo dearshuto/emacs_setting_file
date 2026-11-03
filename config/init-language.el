@@ -25,12 +25,12 @@
 ;; glsl
 (use-package glsl-mode
   :ensure t
-  :defer t
-  :after package
-  :init
-  (add-to-list 'auto-mode-alist '("\\.vs\\'" . glsl-mode))
-  (add-to-list 'auto-mode-alist '("\\.fs\\'" . glsl-mode))
-  (add-to-list 'auto-mode-alist '("\\.ps\\'" . glsl-mode))
+  :mode
+  ("\\.glsl\\'" . glsl-mode)
+  ("\\.vs\\'" . glsl-mode)
+  ("\\.fs\\'" . glsl-mode)
+  :hook
+  (glsl-mode . eglot-ensure)
   )
 
 (use-package cmake-ts-mode
