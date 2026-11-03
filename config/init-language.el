@@ -22,6 +22,24 @@
   (add-to-list 'auto-mode-alist '("\\.ps\\'" . glsl-mode))
   )
 
+(use-package cmake-ts-mode
+  ;; :mode (("CMakeLists\\.txt\\'" . cmake-ts-mode)
+  ;;        ("\\.cmake\\'" . cmake-ts-mode))
+  :hook
+  ;; CMake ファイルを開いたときに自動で Eglot（LSP）を起動する
+  (cmake-ts-mode . eglot-ensure)
+  :config
+  (add-to-list 'eglot-server-programs
+               '(cmake-ts-mode . ("neocmakelsp" "stdio"))))
+
+;; cmake
+(use-package eglot
+  :ensure nil
+  :config
+  ;; neocmakelsp をサーバープログラムとして明示的に登録
+  (add-to-list 'eglot-server-programs
+               '(cmake-ts-mode . ("neocmakelsp"))))
+
 ;; lsp
 (use-package eglot
   :ensure nil
