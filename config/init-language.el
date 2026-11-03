@@ -11,6 +11,17 @@
   ;; 保存時に自動フォーマット (rust-analyzer の機能を利用)
   (add-hook 'before-save-hook 'eglot-format-buffer nil t))
 
+(use-package c++-ts-mode
+  :ensure nil
+  :mode
+  ("\\.cpp\\'" . c++-ts-mode)
+  ("\\.hpp\\'" . c++-ts-mode)
+  ("\\.h\\'" . c++-ts-mode)
+  :init
+  (add-hook 'c++-ts-mode-hook #'eglot-ensure)
+  :config
+  (add-hook 'before-save-hook 'eglot-format-buffer nil t))
+
 ;; glsl
 (use-package glsl-mode
   :ensure t
