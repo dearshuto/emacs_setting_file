@@ -34,22 +34,14 @@
   )
 
 (use-package cmake-ts-mode
-  ;; :mode (("CMakeLists\\.txt\\'" . cmake-ts-mode)
-  ;;        ("\\.cmake\\'" . cmake-ts-mode))
+  :mode (("CMakeLists\\.txt\\'" . cmake-ts-mode)
+          ("\\.cmake\\'" . cmake-ts-mode))
   :hook
   ;; CMake ファイルを開いたときに自動で Eglot（LSP）を起動する
   (cmake-ts-mode . eglot-ensure)
   :config
-  (add-to-list 'eglot-server-programs
-               '(cmake-ts-mode . ("neocmakelsp" "stdio"))))
-
-;; cmake
-(use-package eglot
-  :ensure nil
-  :config
-  ;; neocmakelsp をサーバープログラムとして明示的に登録
-  (add-to-list 'eglot-server-programs
-               '(cmake-ts-mode . ("neocmakelsp"))))
+  (add-hook 'before-save-hook 'eglot-format-buffer nil t)
+)
 
 ;; lsp
 (use-package eglot
@@ -65,6 +57,7 @@
         ("C-;" . eglot-code-actions))
   :config
   (add-to-list 'eglot-server-programs '((glsl-mode) "glsl_analyzer"))
+  (add-to-list 'eglot-server-programs '(cmake-ts-mode . ("neocmakelsp" "stdio")))
   ;; eglotで無効にする機能
   (setq eglot-ignored-server-capabilities
         '(:inlayHintProvider ;; インラインのヒント表示
