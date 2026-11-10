@@ -22,6 +22,16 @@
   :config
   (add-hook 'before-save-hook 'eglot-format-buffer nil t))
 
+;; C#
+(use-package csharp-ts-mode
+  :ensure nil
+  :mode "\\.cs\\'"
+  :hook
+  (csharp-ts-mode . eglot-ensure)
+  :config
+  ;; 保存時に自動フォーマット
+  (add-hook 'before-save-hook #'eglot-format-buffer nil t))
+
 ;; glsl
 (use-package glsl-mode
   :ensure t
